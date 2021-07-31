@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with FridgeList
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created as a way for me and my wife to collaborate on a dev project.
 
 ## Available Scripts
 
