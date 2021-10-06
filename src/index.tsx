@@ -1,8 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { createServer, Model } from 'miragejs';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+createServer({
+  models: {
+    cartItem: Model
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      cartItems: [
+        {
+          id: 1,
+          description: 'Farofa',
+          amount: 1,
+          isBought: false,
+          createdAt: new Date(),
+        },
+        {
+          id: 2,
+          description: 'Toddy',
+          amount: 1,
+          isBought: false,
+          createdAt: new Date(),
+        },
+      ],
+    })
+  },
+
+  routes(){
+    this.namespace = 'api';
+
+    this.get('/cartItems', (schema, request) => {
+      return schema.all("cartItem");
+    });
+
+    this.post('/cartItems', (schema, request) => {
+      const newCartItem = JSON.parse(request.requestBody);
+
+      return schema.create('cartItem', newCartItem);
+    })
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,8 +50,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
